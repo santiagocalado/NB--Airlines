@@ -1,0 +1,57 @@
+/* Estilo para o corpo da página */
+body {
+    background-color: #f8f9fa; /* Cor de fundo suave */
+    color: #343a40; /* Cor do texto padrão */
+    font-family: 'Arial', sans-serif; /* Fonte mais legível */
+}
+
+/* Estilo para o container principal */
+.container {
+    background-color: #ffffff; /* Fundo branco para o conteúdo */
+    padding: 30px; /* Preenchimento interno */
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 600px; /* Limita a largura máxima para formulários */
+}
+
+/* Estilo para os títulos */
+h1 {
+    color: #007bff; /* Cor azul primária para o título principal */
+    border-bottom: 2px solid #007bff; /* Linha sob o título */
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+h3 {
+    color: #28a745; /* Cor verde para o título secundário */
+    margin-top: 40px;
+}
+
+/* Estilo para o botão de registro */
+.btn-primary {
+    background-color: #28a745; /* Cor verde (sucesso) */
+    border-color: #28a745;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.btn-primary:hover {
+    background-color: #1e7e34; /* Um verde mais escuro no hover */
+    border-color: #1e7e34;
+}
+
+/* Estilo para a lista de vendas */
+#listaVendas {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 0;
+}
+
+/* Estilo para cada item da lista (se você for adicionar itens de lista com a classe list-group-item) */
+.list-group-item {
+    transition: background-color 0.2s ease;
+}
+
+.list-group-item:hover {
+    background-color: #e9ecef; /* Um leve destaque ao passar o mouse */
+}
