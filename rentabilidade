@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel de Análise de Rentabilidade por Rota</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background-color: #f7f9fc;
+    }
+    h1 {
+      color: #004080;
+    }
+    form {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.2rem;
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #005bb5;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #004080;
+      color: white;
+    }
+    .positive {
+      color: green;
+      font-weight: bold;
+    }
+    .negative {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Painel de Análise de Rentabilidade por Rota</h1>
+  <form id="rentabilityForm">
+    <label for="route">Selecione a Rota:</label>
+    <select id="route" required>
+      <option value="">-- Escolha a rota --</option>
+      <option value="RIO-SAO">Rio de Janeiro - São Paulo</option>
+      <option value="SAO-BHZ">São Paulo - Belo Horizonte</option>
+      <option value="RIO-BHZ">Rio de Janeiro - Belo Horizonte</option>
+      <option value="SAO-POA">São Paulo - Porto Alegre</option>
+    </select>
+
+    <label for="revenue">Receita de Passagens (R$):</label>
+    <input type="number" id="revenue" min="0" step="0.01" placeholder="Ex: 50000" required />
+
+    <label for="fuelCost">Custo de Combustível (R$):</label>
+    <input type="number" id="fuelCost" min="0" step="0.01" placeholder="Ex: 15000" required />
+
+    <label for="taxes">Taxas (R$):</label>
+    <input type="number" id="taxes" min="0" step="0.01" placeholder="Ex: 5000" required />
+
+    <button type="submit">Calcular Rentabilidade</button>
+  </form>
+
+  <table id="resultTable" style="display:none;">
+    <thead>
+      <tr>
+        <th>Rota</th>
+        <th>Receita (R$)</th>
+        <th>Custos (Combustível + Taxas) (R$)</th>
+        <th>Lucro / Prejuízo (R$)</th>
+        <th>Rentabilidade (%)</th>
+      </tr>
+    </thead>
+    <tbody id="resultBody">
+      <!-- Resultados aparecem aqui -->
+    </tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('rentabilityForm');
+    const resultTable = document.getElementById('resultTable');
+    const resultBody = document.getElementById('resultBody');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const route = document.getElementById('route').value;
+      const revenue = parseFloat(document.getElementById('revenue').value);
+      const fuelCost = parseFloat(document.getElementById('fuelCost').value);
+      const taxes = parseFloat(document.getElementById('taxes').value);
+
+      const totalCosts = fuelCost + taxes;
+      const profit = revenue - totalCosts;
+      const profitability = ((profit / revenue) * 100).toFixed(2);
+
+      // Cria a linha do resultado
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${route}</td>
+        <td>R$ ${revenue.toFixed(2)}</td>
+        <td>R$ ${totalCosts.toFixed(2)}</td>
+        <td class="${profit >= 0 ? 'positive' : 'negative'}">R$ ${profit.toFixed(2)}</td>
+        <td class="${profitability >= 0 ? 'positive' : 'negative'}">${profitability}%</td>
+      `;
+
+      // Adiciona a linha à tabela
+      resultBody.innerHTML = ''; // limpa resultados anteriores
+      resultBody.appendChild(tr);
+      resultTable.style.display = 'table';
+    });
+  </script>
+</body>
+</html>
